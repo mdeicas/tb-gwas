@@ -16,7 +16,7 @@ ____. The raw data was processed to obtain mapped reads of SNPs and a phylogeny.
 All samples were tagged with discrete transmissibility values inferred from
 sizes of infection clusters. The following data files were used:
 - pyseer: Moldova_SNPs_QC.vcf, Moldova_1834_SNPs.tree, allclusterPheno_0.0005
-- dbgwas: allclusterRankedPheno_0.0005.txt, fasta (directory of fasta files for each sequence), Moldova_1834_SNPs.tree
+- dbgwas: allclusterRankedPheno_0.0005.txt, individual (directory of fasta files for each sequence), Moldova_1834_SNPs.tree
 - XGBOOST + SHAP:
 
 ## Instructions to reproduce
@@ -34,4 +34,20 @@ The output is a list of samples with p-values, among other values. This output
 file can be cleaned up and sorted by p-value for easier interpretation with 
 the `process_output.sh` script. 
 
-Finally, a manhattan plot can be created to visualize the results using `plot.py`.  
+Finally, a manhattan plot can be created to visualize the results using `plot.py`.
+
+### DBGWAS
+To run the code, first have the necessary data files as specified by the README in the main repository. This should include:
+- allclusterRankedPheno_0.0005.txt
+- individual (directory containing fasta files for each sequence) 
+- Moldova_1834_SNPs.tree
+
+Once you have these data files, run the following commands:
+
+```
+docker pull leandroishilima/dbgwas
+./create_final.sh
+sbatch ./dbgwas.sh
+```
+
+This should submit the job to Slurm and you should get back a directory called output, which contains the DBGWAS output. To visualize, go to the visualizations directory within the output folder and go to index.html.
