@@ -13,7 +13,7 @@ To run the scripts in this repo, replace all occurrences of `docker1` with
 ## Data Used 
 This study used samples of *Mycobacterium tuberculosis* obtained from ____ in 
 ____. The raw data was processed to obtain mapped reads of SNPs and a phylogeny. 
-All samples were tagged with discrete transmissibility values inferred from
+All samples were tagged with binary transmissibility values inferred from
 sizes of infection clusters. The following data files were used:
 - pyseer: Moldova_SNPs_QC.vcf, Moldova_1834_SNPs.tree, allclusterPheno_0.0005
 - dbgwas: allclusterRankedPheno_0.0005.txt, individual (directory of fasta files for each sequence), Moldova_1834_SNPs.tree
