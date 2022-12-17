@@ -6,6 +6,7 @@ To run the code, first have the necessary data files as specified by the README 
 Once you have these data files, run the following commands:
 
 ```
+docker pull leandroishilima/dbgwas
 ./create_final.sh
 sbatch ./dbgwas.sh
 ```
