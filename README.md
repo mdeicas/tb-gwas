@@ -71,6 +71,6 @@ This should submit the job to Slurm and you should get back a directory called o
 - allclusterRankedPheno_0.0005.txt (transmissability values)
 - info.txt (major/minor bases)
 3. Intialize your Docker container and run the python .py files, alternatively, use the slurm command sbatch to schedule the shell .sh files.
-  - First run dmatrix.py to process the data and then calculate and save the data matrix.
-  - Afterwards, use xgboost_shap.py to run the xgboost-shap algorithm, which will output a couple graphs documenting the model, a saved json representation of the model, validation scores at each iteration, and SHAP values. 
-  - Use parameter_search.py to grid-search or fine-tune XGBoost parameters.
+   - First run dmatrix.py to process the data and then calculate and save the data matrix.
+   - Afterwards, use xgboost_shap.py to run the xgboost-shap algorithm, which will output a couple graphs documenting the model, a saved json representation of the model, validation scores at each iteration, and SHAP values. 
+   - Use parameter_search.py to grid-search or fine-tune XGBoost parameters.
