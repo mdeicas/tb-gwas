@@ -21,7 +21,7 @@ All samples were tagged with binary transmissibility values inferred from
 sizes of infection clusters. The following data files were used:
 - pyseer: Moldova_SNPs_QC.vcf, Moldova_1834_SNPs.tree, allclusterPheno_0.0005.txt
 - dbgwas: allclusterRankedPheno_0.0005.txt, individual (directory of fasta files for each sequence), Moldova_1834_SNPs.tree
-- XGBOOST + SHAP:
+- XGBOOST + SHAP: all_snps_filtered.fasta, allclusterRankedPheno_0.0005.txt, info.txt
 
 ## Instructions to reproduce
 ### Pyseer
@@ -65,4 +65,10 @@ sbatch ./dbgwas.sh
 This should submit the job to Slurm and you should get back a directory called output, which contains the DBGWAS output. To visualize, go to the visualizations directory within the output folder and go to index.html.
 
 ### XGBoost + SHAP
-1. 
+1. Create a Docker container with all the modules listed above, as well as XGBoost, SHAP, scipy, and sklearn.
+2. Download and put your data files into a new directory. Our XGBoost-SHAP code uses three files, namely:
+- all_snps_filtered.fasta (filtered TB sequences)
+- allclusterRankedPheno_0.0005.txt (transmissability values)
+- info.txt (major/minor bases)
+3. Intialize your Docker container and run the python .py files, alternatively, use the slurm command sbatch to schedule the shell .sh files.
+First run dmatrix.py to process the data and then calculate and save the data matrix. Afterwards, use xgboost_shap.py to run the xgboost-shap algorithm, which will output a couple graphs documenting the model, a saved json representation of the model, validation scores at each iteration, and SHAP values. Use parameter_search.py to grid-search or fine-tune XGBoost parameters.
