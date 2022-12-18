@@ -4,7 +4,7 @@ results of a GWAS on tuberculosis transmissibility.
 
 ## Requirements
 - Docker 
-- Python 
+- Python, matplotlib, and numpy 
 - Slurm 
 - Anaconda 
 - git 
@@ -15,18 +15,18 @@ the repo, but code could be modified to remove that requirement.
 
 
 ## Data Used 
-This study used samples of *Mycobacterium tuberculosis* obtained from ____ in 
-____. The raw data was processed to obtain mapped reads of SNPs and a phylogeny. 
+This study used samples of *Mycobacterium tuberculosis* (private data). 
+The raw data was processed to obtain mapped reads of SNPs and a phylogeny. 
 All samples were tagged with binary transmissibility values inferred from
 sizes of infection clusters. The following data files were used:
-- pyseer: Moldova_SNPs_QC.vcf, Moldova_1834_SNPs.tree, allclusterPheno_0.0005
+- pyseer: Moldova_SNPs_QC.vcf, Moldova_1834_SNPs.tree, allclusterPheno_0.0005.txt
 - dbgwas: allclusterRankedPheno_0.0005.txt, individual (directory of fasta files for each sequence), Moldova_1834_SNPs.tree
 - XGBOOST + SHAP:
 
 ## Instructions to reproduce
 ### Pyseer
-1. Install Pyseer (https://pyseer.readthedocs.io/en/master/installation.html)
-2. Clone this repo and set up directories. 
+1. Install Pyseer, with conda (https://pyseer.readthedocs.io/en/master/installation.html)
+2. Clone this repo and set up working directories. 
 
 ```
 git clone https://github.com/mdeicas/tb-gwas.git
@@ -36,11 +36,14 @@ mkdir enet_wdir
 ``` 
 3. These scripts contain absolute file paths to data files and to anaconda. Before running, ensure 
 that the file paths are updated, if necessary, to their corresponding locations on your system. 
-4. Run the algorithms 
+4. Generate the distances matrix  
 ```
 sbatch slurm_jobs/generate_distances.sh
+```
+5. Run the algorithms once the previous job has finished 
+```
 cd fixed_effects_wdir && sbatch ../slurm_jobs/fixed_effects_job.sh
-cd enet_wdir && sbatch ../slurm_jobs/enet_model_job.sh`
+cd ../enet_wdir && sbatch ../slurm_jobs/enet_model_job.sh
 ```
 This results in two Manhattan Plots and SNPs sorted by p-values. 
 

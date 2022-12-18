@@ -4,7 +4,7 @@
 #SBATCH --time=60
 
 phenotypes="/workdir/moldova/transmission/cluster/allclusterPheno_0.0005.txt" 
-vcf="/workdir/moldova/base_data/Moldova_SNPs.vcf"
+vcf="/workdir/moldova/base_data/Moldova_SNPs_QC.vcf"
 distances="../distances.tsv"
 out="assoc.out"
 
