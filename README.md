@@ -3,11 +3,15 @@ This repository contains scripts, configs, and instructions to reproduce the
 results of a GWAS on tuberculosis transmissibility. 
 
 ## Requirements
-- Docker (version) 
-- Slurm
+- Docker 
+- Python 
+- Slurm 
+- Anaconda 
+- git 
 
 To run the scripts in this repo, replace all occurrences of `docker1` with 
-`docker` and modify the file paths for your system. 
+`docker` and modify the file paths for your system. Slurm is used throughout
+the repo, but code could be modified to remove that requirement. 
 
 
 ## Data Used 
@@ -21,20 +25,25 @@ sizes of infection clusters. The following data files were used:
 
 ## Instructions to reproduce
 ### Pyseer
-Pyseer uses a matrix containing the phylogenetic distances between all pairs 
-of samples to account for population structure. Use the `generate_distances.sh` 
-slurm job script to generate this matrix from the phylogeny of the TB samples in 
-newick-tree format. 
+1. Install Pyseer (https://pyseer.readthedocs.io/en/master/installation.html)
+2. Clone this repo and set up directories. 
 
-Next, use the `job.sh` slurm batch job script to run pyseer. The input is the SNPs
-as a vcf file, the distance matrix generated in the previous step, and the 
-phenotypes. 
+```
+git clone https://github.com/mdeicas/tb-gwas.git
+cd tb-gwas/pyseer 
+mkdir fixed_effects_wdir
+mkdir enet_wdir
+``` 
+3. These scripts contain absolute file paths to data files and to anaconda. Before running, ensure 
+that the file paths are updated, if necessary, to their corresponding locations on your system. 
+4. Run the algorithms 
+```
+sbatch slurm_jobs/generate_distances.sh
+cd fixed_effects_wdir && sbatch ../slurm_jobs/fixed_effects_job.sh
+cd enet_wdir && sbatch ../slurm_jobs/enet_model_job.sh`
+```
+This results in two Manhattan Plots and SNPs sorted by p-values. 
 
-The output is a list of samples with p-values, among other values. This output
-file can be cleaned up and sorted by p-value for easier interpretation with 
-the `process_output.sh` script. 
-
-Finally, a manhattan plot can be created to visualize the results using `plot.py`.
 
 ### DBGWAS
 To run the code, first have the necessary data files as specified by the README in the main repository. This should include:

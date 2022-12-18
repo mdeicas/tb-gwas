@@ -9,7 +9,7 @@ file = file[file[:, 0] > 0]
 file = file.T
 
 plt.scatter(file[0], file[1], s=4)
-plt.xlabel('position of indel')
+plt.xlabel('position of SNP')
 plt.ylabel('-log10 of p value')
 plt.savefig("manhattan_plot.png")
 # plt.show()
