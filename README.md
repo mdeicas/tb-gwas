@@ -63,3 +63,6 @@ sbatch ./dbgwas.sh
 ```
 
 This should submit the job to Slurm and you should get back a directory called output, which contains the DBGWAS output. To visualize, go to the visualizations directory within the output folder and go to index.html.
+
+### XGBoost + SHAP
+1. 
